@@ -6,9 +6,6 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
 
-
-
-
 router.delete('/users/:email', (req, res) => {
     const { token } = req.body;
     const { email } = req.params;
@@ -20,7 +17,7 @@ router.delete('/users/:email', (req, res) => {
   
     try {
       const decoded = jwt.verify(token, 'your_secret_key');
-      if (decoded.type !== 'ADMIN_ROLE') {
+      if (decoded.type !== 'ROLE_ADMIN') {
         res.status(403).json({ error: 'Forbidden' });
         return;
       }
@@ -174,7 +171,7 @@ router.post('/register', (req, res) => {
   
     try {
       const decoded = jwt.verify(token, 'your_secret_key');
-      if (decoded.type !== 'ADMIN_ROLE') {
+      if (decoded.type !== 'ROLE_ADMIN') {
         res.status(403).json({ error: 'Forbidden' });
         return;
       }
